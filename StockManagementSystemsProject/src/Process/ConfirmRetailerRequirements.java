@@ -1,0 +1,973 @@
+package Process;
+
+import Log.Login;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.ResultSetMetaData;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+
+/**
+ *
+ * @author 91979
+ */
+public class ConfirmRetailerRequirements extends javax.swing.JFrame {
+    private Connection con;
+    private static PreparedStatement pst;
+    private static ResultSet rs;
+    private String name;
+    private String userType;
+    private int id;
+    private static String S_no;
+    private static String Invoice_num; 
+    private static String Order_num; 
+    private static String Prod_id;
+    private static String Prod_Name;
+    private static String Description;
+    private static String Price;
+    private static String Qty;
+    private static String Status;
+    private static String Vehicle;
+    private static String InvoiceDate;
+    private static String Total_cost;
+    private String view;
+    /**
+     * Creates new form Admin
+     */
+    public ConfirmRetailerRequirements() {
+        initComponents();
+        this.con = Login.connection();
+        }
+    public ConfirmRetailerRequirements(String name, int id,String userType,Connection con,String view) {
+        initComponents();
+        jUserId.setText(String.valueOf(id));
+        jUserName.setText(name);
+        this.con= con;
+        this.name = name;
+        this.id = id;
+        this.userType = userType;
+        if(view.equals("View")){
+            loadTableAutomatic();
+            jbtnConfirm.setVisible(false);
+        }else{
+            loadTableAutomaticStatusConfirm();
+            jbtnConfirm.setEnabled(false);
+        }
+       }
+    
+    private void loadTableAutomatic(){
+          String sql= "select * from TransferMaterialRetailer";
+         try {
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            int c = rsm.getColumnCount();
+            DefaultTableModel df = (DefaultTableModel)jtblRequerment.getModel();
+            df.setRowCount(0);
+            while(rs.next()){
+                Vector v = new Vector();
+                for(int i=1;i<=c;i++){
+                    v.add(rs.getString("S_no"));
+                    v.add(rs.getString("Invoice_num"));
+                    v.add(rs.getString("Order_num"));
+                    v.add(rs.getString("Prod_id"));
+                    v.add(rs.getString("Prod_Name"));
+                    v.add(rs.getString("Description"));
+                    v.add(rs.getString("Price"));
+                    v.add(rs.getString("Qty"));
+                    v.add(rs.getString("Status"));
+                    v.add(rs.getString("Vehicle"));
+                    v.add(rs.getString("InvoiceDate"));
+                    v.add(rs.getString("Total_cost"));
+                  }
+                df.addRow(v);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void loadTableAutomaticStatusConfirm(){
+          String sql= "select * from TransferMaterialRetailer where status not like 'Received'";
+         try {
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            int c = rsm.getColumnCount();
+            DefaultTableModel df = (DefaultTableModel)jtblRequerment.getModel();
+            df.setRowCount(0);
+            while(rs.next()){
+                Vector v = new Vector();
+                for(int i=1;i<=c;i++){
+                    v.add(rs.getString("S_no"));
+                    v.add(rs.getString("Invoice_num"));
+                    v.add(rs.getString("Order_num"));
+                    v.add(rs.getString("Prod_id"));
+                    v.add(rs.getString("Prod_Name"));
+                    v.add(rs.getString("Description"));
+                    v.add(rs.getString("Price"));
+                    v.add(rs.getString("Qty"));
+                    v.add(rs.getString("Status"));
+                    v.add(rs.getString("Vehicle"));
+                    v.add(rs.getString("InvoiceDate"));
+                    v.add(rs.getString("Total_cost"));
+                  }
+                df.addRow(v);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jUserId = new javax.swing.JLabel();
+        jUserName = new javax.swing.JLabel();
+        jbtnProduct = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jtblRequerment = new javax.swing.JTable();
+        jbtnConfirm = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setForeground(new java.awt.Color(51, 51, 255));
+
+        jLabel1.setBackground(new java.awt.Color(0, 255, 204));
+        jLabel1.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel1.setText("view Transfer request Products");
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(153, 153, 255));
+        jLabel2.setText("User Id");
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 153, 255));
+        jLabel3.setText("Name");
+
+        jUserId.setBackground(new java.awt.Color(255, 204, 204));
+        jUserId.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jUserId.setForeground(new java.awt.Color(153, 153, 255));
+        jUserId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jUserId.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jUserId.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jUserName.setBackground(new java.awt.Color(255, 204, 204));
+        jUserName.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jUserName.setForeground(new java.awt.Color(153, 153, 255));
+        jUserName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jUserName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jUserName.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jbtnProduct.setBackground(new java.awt.Color(153, 204, 255));
+        jbtnProduct.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jbtnProduct.setForeground(new java.awt.Color(0, 0, 255));
+        jbtnProduct.setText("Back");
+        jbtnProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnProductActionPerformed(evt);
+            }
+        });
+
+        jtblRequerment.setBackground(new java.awt.Color(51, 255, 204));
+        jtblRequerment.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jtblRequerment.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jtblRequerment.setForeground(new java.awt.Color(255, 153, 153));
+        jtblRequerment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "S_no", "Invoice_num", "Order_num", "Prod_id", "Prod_Name", "Description", "Price", "Qty", "Status", "Vehicle", "InvoiceDate", "Total_cost"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jtblRequerment.setGridColor(new java.awt.Color(102, 255, 255));
+        jtblRequerment.setSelectionBackground(new java.awt.Color(0, 255, 255));
+        jtblRequerment.setSelectionForeground(new java.awt.Color(0, 0, 255));
+        jtblRequerment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblRequermentjtableProductMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jtblRequerment);
+        if (jtblRequerment.getColumnModel().getColumnCount() > 0) {
+            jtblRequerment.getColumnModel().getColumn(0).setResizable(false);
+            jtblRequerment.getColumnModel().getColumn(0).setPreferredWidth(1);
+            jtblRequerment.getColumnModel().getColumn(3).setPreferredWidth(1);
+        }
+
+        jbtnConfirm.setBackground(new java.awt.Color(153, 204, 255));
+        jbtnConfirm.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jbtnConfirm.setForeground(new java.awt.Color(0, 0, 255));
+        jbtnConfirm.setText("Confirm");
+        jbtnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnConfirmActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jbtnProduct)
+                                .addGap(112, 112, 112)
+                                .addComponent(jLabel1)
+                                .addGap(81, 81, 81)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(497, 497, 497)
+                                .addComponent(jbtnConfirm)))
+                        .addGap(0, 367, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbtnProduct)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel3))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(jUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnConfirm)
+                .addGap(12, 12, 12))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+  private void checkUserType(String name, int id,String userType){
+        System.gc();
+        this.setVisible(false);
+        switch (userType) {
+            case "Admin" -> new Users.Admin(name,id,userType,con).setVisible(true);
+            case "Receving" -> new Users.Receving(name,id,userType,con).setVisible(true);
+            case "Quality" -> new Users.Quality(name,id,userType,con).setVisible(true);
+            case "Vendor" -> new Users.Vendor(name,id,userType,con).setVisible(true);
+            case "Billing" -> new Users.Billing(name,id,userType,con).setVisible(true);
+            case "Retailers" -> new Users.Retailers(name,id,userType,con).setVisible(true);
+            default -> JOptionPane.showMessageDialog(this, "Something went wrong");
+        }
+    }
+    private void jbtnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnProductActionPerformed
+       checkUserType(name,id,userType);
+    }//GEN-LAST:event_jbtnProductActionPerformed
+
+    private void jtblRequermentjtableProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblRequermentjtableProductMouseClicked
+        DefaultTableModel df = (DefaultTableModel)jtblRequerment.getModel();
+        int selectedIndex = jtblRequerment.getSelectedRow();
+        if(0<jtblRequerment.getSelectedRowCount()){
+        S_no =df.getValueAt(selectedIndex, 0).toString();
+        Invoice_num =df.getValueAt(selectedIndex, 1).toString();
+        Order_num =df.getValueAt(selectedIndex, 2).toString();
+        Prod_id =df.getValueAt(selectedIndex, 3).toString();
+        Prod_Name  =df.getValueAt(selectedIndex, 4).toString();
+        Description =df.getValueAt(selectedIndex, 5).toString();
+        Price =df.getValueAt(selectedIndex, 6).toString();
+        Qty =df.getValueAt(selectedIndex, 7).toString();
+        Status =df.getValueAt(selectedIndex, 8).toString();
+        Vehicle =df.getValueAt(selectedIndex, 9).toString();
+        InvoiceDate =df.getValueAt(selectedIndex, 10).toString();
+        Total_cost =df.getValueAt(selectedIndex, 11).toString();
+       if(Status.equals("Material sended")){
+            jbtnConfirm.setEnabled(true);
+            jbtnConfirm.requestFocus();
+       }else{
+            jbtnConfirm.setEnabled(false);
+       }
+        }
+    }//GEN-LAST:event_jtblRequermentjtableProductMouseClicked
+
+    private void jbtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnConfirmActionPerformed
+        if(0<jtblRequerment.getSelectedRowCount()){
+        String sql = "Update TransferMaterialRetailer set Status = ? where S_no= ? and Invoice_num= ? and Order_num=?";
+           try {
+               pst = con.prepareStatement(sql);
+               pst.setString(1, "Received");
+               pst.setString(2, S_no);
+               pst.setString(3, Invoice_num);
+               pst.setString(4, Order_num);
+               int count = pst.executeUpdate();
+               if(0<count){
+                 sql = "Update RequermentRequest set Status = ? where S_no= ? and Order_num=?";
+                 pst = con.prepareStatement(sql);
+                 pst.setString(1, "Finished Confirmed");
+                 pst.setString(2, S_no);
+                 pst.setString(3, Order_num);
+                 count=0;
+                 count = pst.executeUpdate();
+                 if(0<count){
+                   JOptionPane.showMessageDialog(this, "Material Received for \n ORDER NO: "+ Order_num);
+                   jbtnConfirm.setEnabled(false);
+                   loadTableAutomaticStatusConfirm();  
+                 }else{
+                     JOptionPane.showMessageDialog(this, "Something went Wrong in RequermentRequest");
+                 }
+               }else{
+                   JOptionPane.showMessageDialog(this, "Something went Wrong in TransferMaterialRetailer");
+               }
+           } catch (SQLException ex) {
+               Logger.getLogger(ConfirmRetailerRequirements.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        
+        }else{
+            JOptionPane.showMessageDialog(this, "Please Select Any Row");
+        }
+    }//GEN-LAST:event_jbtnConfirmActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ConfirmRetailerRequirements.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ConfirmRetailerRequirements.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ConfirmRetailerRequirements.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ConfirmRetailerRequirements.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ConfirmRetailerRequirements().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel jUserId;
+    private javax.swing.JLabel jUserName;
+    private javax.swing.JButton jbtnConfirm;
+    private javax.swing.JButton jbtnProduct;
+    private javax.swing.JTable jtblRequerment;
+    // End of variables declaration//GEN-END:variables
+}
