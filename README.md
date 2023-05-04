@@ -119,9 +119,9 @@ https://github.com/KishorePrograming/Stock-Management-System.git
 <ul style="list-style-type:circle;">
 <li><b>Admin can create users and assign them a user type.</b></li><br>
 <li><b>Admin can view, delete, and modify user data.</b></li><br>
-<li><b>Admin can view product information and track stock transfers.</b></li>
-<li><b>Admin can view information about cancelled products.</b></li>
-<li><b>Admin can obtain sales reports for specific store locations.</b></li>
+<li><b>Admin can view product information and track stock transfers.</b></li><br>
+<li><b>Admin can view information about cancelled products.</b></li><br>
+<li><b>Admin can obtain sales reports for specific store locations.</b></li><br>
 </ul>
 
 
@@ -149,7 +149,7 @@ https://github.com/KishorePrograming/Stock-Management-System.git
 <li><b>The receiving person is responsible for transferring the products to the quality person.</b></li><br>
 <li><b>After the quality check is complete, the receiving person can view the confirmation page to accept and GRN (Goods Receipt Note) the product.</b></li><br>
 <li><b>The receiving person can also view the store's current stock of products, as well as track stock transfers.</b></li><br>
-<ul>
+</ul>
 
 ## User Quality Main Page:
 
@@ -161,7 +161,7 @@ https://github.com/KishorePrograming/Stock-Management-System.git
 <li><b>The quality person can request to check the product by clicking on the "Request Checking" button.</b></li><br>
 <li><b>If the product meets the quality standards, they can click on the "Confirm" button to allow the receiving process to continue.</b></li><br>
 <li><b>If there are any issues with the product, the quality person can click on the "Request Cancel" button to return the product to the vendor.</b></li><br>
-<ul>
+</ul>
 
 
 ## User Billing Main Page:
@@ -175,7 +175,7 @@ https://github.com/KishorePrograming/Stock-Management-System.git
 <li><b>The billing person can process the orders that are placed by the retailers.</b></li><br>
 <li><b>Once the order is processed, the billing person can create an invoice for the product and send it to the retailer who placed the order.</b></li><br>
 <li><b>Once the billing process is complete, the stock of the product will be reduced in the store's database.</b></li><br>
-<ul>
+</ul>
 
 
 ## User Retailers Main Page:
@@ -189,7 +189,7 @@ https://github.com/KishorePrograming/Stock-Management-System.git
 <li><b>After placing an order, the retailer can view the status of their order.</b></li><br>
 <li><b>Once the order is complete and sent from the store, the retailer can view the details of the sent material.</b></li><br>
 <li><b>Once the order has arrived at their location, the retailer can confirm the order.</b></li><br>
-<ul>
+</ul>
 
 # ⛏️ Built Using <a id = "built_using" name = "built_using"></a>
 
