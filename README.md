@@ -30,9 +30,7 @@
 - [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a id="about" name = "about"></a>
-
-
-
+The Stock Management System is a user-friendly tool designed to manage inventory and order processing in a retail setting. Its various functionalities cater to different user types, including admin, vendor, receiving person, quality person, billing person, and retailer. Overall, the system provides efficient and effective inventory management and order processing solutions for businesses.
 
 - [Top](#Top)
 
@@ -65,8 +63,10 @@ https://github.com/KishorePrograming/Stock-Management-System.git
 3. Imported it in Java NetBeans IDE 
 4. Run the application 
 
+## <b> Usage : </b> <a id= "usage"></a> - [Top](#Top)
+
 # Project Views 
-<h1>Over View of Project</h1>
+
 <h2>Users :</h2><br>
 <b>1. Admin</b><br>
 <b>2. Vendor</b><br>
@@ -75,10 +75,7 @@ https://github.com/KishorePrograming/Stock-Management-System.git
 <b>5. Billing</b><br>
 <b>6. Retailers</b><br>
 
-## <b> Usage : </b> <a id= "usage"></a> - [Top](#Top)
-
 ## 🎈 Stock Management System How Start the Project : 
-
 <ol>
 <li><b>Install Java NetBeans IDE and SQL Server Tool.</b></li>
 <li><b>Run the "StockManagementSystemDB" SQL file.</b></li>
